@@ -1,5 +1,6 @@
 /* Lauren Howard
- * CS1B - Assignment 1 - 2015.9.24
+ * CS1B - Assignment 1-1 - 2015.9.24
+ * Fan.java
  * The Fan class models a fan.  It has a speed, on state, radius and color.
  */
 
@@ -21,7 +22,7 @@ public class Fan {
   
   // default values
   private static final int DEFAULT_SPEED = SLOW;
-  private static final boolean DEFAULT_ON_STATE = false;
+  private static final boolean DEFAULT_ON_STATE = OFF;
   private static final double DEFAULT_RADIUS = 5.0;
   private static final String DEFAULT_COLOR = BLUE;
   

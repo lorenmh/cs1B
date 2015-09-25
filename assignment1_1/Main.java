@@ -1,3 +1,10 @@
+/* Lauren Howard
+ * CS1B - Assignment 1-1 - 2015.9.24
+ * Main.java
+ * The main method instantiates some Fan objects, modifies their values, then
+ * prints their values via the printFan method.
+ */
+
 package assignment1_1;
 
 public class Main {
@@ -22,27 +29,13 @@ public class Main {
     printFan( fan1 );
     printFan( fan2 );
   }
-  
+ 
+  // prints the values of a Fan instance using Fan's accessor methods
   public static void printFan( Fan fan ) {
     System.out.println( "Fan" );
     System.out.printf( "  speed: %d%n", fan.getSpeed() );
     System.out.printf( "  onState: %b%n", fan.getOnState() );
     System.out.printf( "  radius: %.1f%n", fan.getRadius() );
     System.out.printf( "  color: %s%n%n", fan.getColor() );
-  }
-
-  public static double sumMatrix( int[][] m ) {
-    double sum = 0.0;
-
-    int numRows = m.length;
-    int numCols = m[ 0 ].length;
-
-    for ( int row = 0; row < numRows; row++ ) {
-      for ( int col = 0; col < numCols; col++ ) {
-       sum += m[ row ][ col ];
-      }
-    }
-
-   return sum; 
   }
 }

@@ -1,36 +1,27 @@
-package assignment1;
+/* Lauren Howard
+ * CS1B - Assignment 1-2 - 2015.9.24
+ * Main.java
+ * The main method instantiates a 2D integer array, then using the sumMatrix
+ * method, the sum of the integer values in the 2D array are printed.
+ */
+
+package assignment1_2;
 
 public class Main {
   public static void main( String[] args ) {
-    // instantiate fans
-    Fan fan1 = new Fan();
-    Fan fan2 = new Fan();
-    
-    // set fan1 values
-    fan1.setSpeed( Fan.FAST );
-    fan1.setRadius( 10.0 );
-    fan1.setColor( Fan.YELLOW );
-    fan1.setOnState( Fan.ON );
+    // instantiate the 2D integer array
+    int[][] matrix = {
+      { 1, 2, 3, 4 },
+      { 2, 3, 4, 5 },
+      { 3, 4, 5, 6 },
+      { 4, 5, 6, 7 }
+    };
 
-    // set fan2 values
-    fan2.setSpeed( Fan.MEDIUM );
-    fan2.setRadius( 5.0 );
-    fan2.setColor( Fan.BLUE );
-    fan2.setOnState( Fan.OFF );
-
-    // print fans
-    printFan( fan1 );
-    printFan( fan2 );
+    // print out the sum of the integer values using sumMatrix
+    System.out.printf( "Sum of matrix: %.1f%n%n", sumMatrix( matrix ) );
   }
   
-  public static void printFan( Fan fan ) {
-    System.out.println( "Fan" );
-    System.out.printf( "  speed: %d%n", fan.getSpeed() );
-    System.out.printf( "  onState: %b%n", fan.getOnState() );
-    System.out.printf( "  radius: %.1f%n", fan.getRadius() );
-    System.out.printf( "  color: %s%n%n", fan.getColor() );
-  }
-
+  // returns the sum of the integers in matrix m
   public static double sumMatrix( int[][] m ) {
     double sum = 0.0;
 
