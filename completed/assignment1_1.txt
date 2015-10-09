@@ -1,0 +1,141 @@
+******************************************
+assignment1_1/Main.java
+******************************************
+/* Lauren Howard
+ * CS1B - Assignment 1-1 - 2015.9.24
+ * Main.java
+ * The main method instantiates some Fan objects, modifies their values, then
+ * prints their values via the printFan method.
+ */
+
+package assignment1_1;
+
+public class Main {
+  public static void main( String[] args ) {
+    // instantiate fans
+    Fan fan1 = new Fan();
+    Fan fan2 = new Fan();
+    
+    // set fan1 values
+    fan1.setSpeed( Fan.FAST );
+    fan1.setRadius( 10.0 );
+    fan1.setColor( Fan.YELLOW );
+    fan1.setOnState( Fan.ON );
+
+    // set fan2 values
+    fan2.setSpeed( Fan.MEDIUM );
+    fan2.setRadius( 5.0 );
+    fan2.setColor( Fan.BLUE );
+    fan2.setOnState( Fan.OFF );
+
+    // print fans
+    printFan( fan1 );
+    printFan( fan2 );
+  }
+ 
+  // prints the values of a Fan instance using Fan's accessor methods
+  public static void printFan( Fan fan ) {
+    System.out.println( "Fan" );
+    System.out.printf( "  speed: %d%n", fan.getSpeed() );
+    System.out.printf( "  onState: %b%n", fan.getOnState() );
+    System.out.printf( "  radius: %.1f%n", fan.getRadius() );
+    System.out.printf( "  color: %s%n%n", fan.getColor() );
+  }
+}
+
+
+******************************************
+assignment1_1/Fan.java
+******************************************
+/* Lauren Howard
+ * CS1B - Assignment 1-1 - 2015.9.24
+ * Fan.java
+ * The Fan class models a fan.  It has a speed, on state, radius and color.
+ */
+
+package assignment1_1;
+
+public class Fan {
+  // speed constants
+  public static final int SLOW = 1;
+  public static final int MEDIUM = 2;
+  public static final int FAST = 3;
+
+  // onState constants
+  public static final boolean ON = true;
+  public static final boolean OFF = false;
+  
+  // color constants
+  public static final String YELLOW = "YELLOW";
+  public static final String BLUE = "BLUE";
+  
+  // default values
+  private static final int DEFAULT_SPEED = SLOW;
+  private static final boolean DEFAULT_ON_STATE = OFF;
+  private static final double DEFAULT_RADIUS = 5.0;
+  private static final String DEFAULT_COLOR = BLUE;
+  
+  // member variables
+  private int m_speed;
+  private boolean m_onState;
+  private double m_radius;
+  private String m_color;
+  
+  // default Fan constructor
+  public Fan() {
+    m_speed = DEFAULT_SPEED;
+    m_onState = DEFAULT_ON_STATE;
+    m_radius = DEFAULT_RADIUS;
+    m_color = DEFAULT_COLOR;
+  }
+  
+  // setters / getters for member variables
+  public void setSpeed( int speed ) {
+    m_speed = speed;
+  }
+  
+  public int getSpeed() {
+    return m_speed;
+  }
+  
+  public void setOnState( boolean onState ) {
+    m_onState = onState;
+  }
+  
+  public boolean getOnState() {
+    return m_onState;
+  }
+  
+  public void setRadius( double radius ) {
+    m_radius = radius;
+  }
+  
+  public double getRadius() {
+    return m_radius;
+  }
+  
+  public void setColor( String color ) {
+    m_color = color;
+  }
+  
+  public String getColor() {
+    return m_color;
+  }
+}
+
+
+******************************************
+CONSOLE OUTPUT
+******************************************
+Fan
+  speed: 3
+  onState: true
+  radius: 10.0
+  color: YELLOW
+
+Fan
+  speed: 2
+  onState: false
+  radius: 5.0
+  color: BLUE
+
