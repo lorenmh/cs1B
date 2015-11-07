@@ -1,0 +1,345 @@
+******************************************
+assignment2/Main.java
+******************************************
+/* Lauren Howard
+ * CS1B - Assignment 2 - 2015.10.19
+ * Main.java
+ * The main method instantiates two Auto objects (an Auto and a Truck
+ * instance). Using travelTestFibonacci the travel methods are called for these
+ * two Auto objects. Results are printed as the tests execute.
+ */
+
+package assignment2;
+
+public class Main {
+  public static int testCounter = 0;
+
+  public static void main( String[] args ) {
+    Auto typicalCar = new Auto( "Lauren Howard", "Typical Car" );
+    travelTestFibonacci( typicalCar );
+
+    Auto semiTruck = new Truck( "Jim Truckdriver", "Semi-Truck" );
+    travelTestFibonacci( semiTruck );
+  }
+
+  // travelTestFibonacci tests an Auto instance's travel method.
+  // The Auto instance's gas tank is filled, then the Auto travels increasing
+  // distances.
+  public static void travelTestFibonacci( Auto automobile ) {
+    System.out.printf( "Test %d ========================%n", ++testCounter );
+    automobile.fillGasTank();
+    automobile.display(); 
+
+    automobile.travel( 10.0f );
+    automobile.travel( 20.0f );
+    automobile.travel( 30.0f );
+    automobile.travel( 50.0f );
+    automobile.travel( 80.0f );
+    automobile.travel( 130.0f );
+    automobile.travel( 210.0f );
+    automobile.travel( 340.0f );
+    automobile.travel( 550.0f );
+    System.out.println();
+
+    automobile.display();
+  }
+}
+
+
+******************************************
+assignment2/Auto.java
+******************************************
+/* Lauren Howard
+ * CS1B - Assignment 2 - 2015.10.19
+ * Auto.java
+ * The Auto class models an automobile.  It has an owner, type, maxSpeed,
+ * tankCapacity, odometer, gasInTank, and averageKPL.  An Auto instance
+ * can travel a distance (in km) by calling its travel method.  When an auto 
+ * travels, it uses up gas and increments the odometer the distance travelled.
+ * Note: KM/L is shortened to 'KPL' meaning 'Kilometer Per Liter of gas used'.
+ */
+
+package assignment2;
+
+public class Auto {
+  // string specifying the owner of the auto
+  protected String ownerName;
+  // string specifying the type of the auto
+  protected String type;
+  // float specifying the maximum speed of the automobile (in km/h)
+  protected float maxSpeed;
+  // float specifying the max tank capacity (in liters)
+  protected float tankCapacity;
+  // float specifying the auto's odometer (in km)
+  protected float odometer;
+  // float specifying the current amount of gas in the tank (in liters)
+  protected float gasInTank;
+  // float specifying the average kilometer per liter;
+  protected float averageKPL;
+
+  // default values
+  public static final String DEFAULT_OWNER = "John Doe";
+  public static final String DEFAULT_TYPE = "Sedan";
+  public static final float DEFAULT_MAX_SPEED = 160.0f;
+  public static final float DEFAULT_TANK_CAPACITY = 40.0f;
+  public static final float DEFAULT_ODOMETER = 0.0f;
+  public static final float DEFAULT_GAS_IN_TANK = 0.0f;
+  public static final float DEFAULT_AVERAGE_KPL = 10.63f;
+
+  // used to compare float values
+  private static final float EPSILON = 0.00000001f;
+
+  // default Auto constructor
+  public Auto() {
+    ownerName = DEFAULT_OWNER;
+    type = DEFAULT_TYPE;
+    maxSpeed = DEFAULT_MAX_SPEED;
+    tankCapacity = DEFAULT_TANK_CAPACITY;
+    odometer = DEFAULT_ODOMETER;
+    gasInTank = DEFAULT_GAS_IN_TANK;
+    averageKPL = DEFAULT_AVERAGE_KPL;
+  }
+  
+  // Auto constructor with ownerName and type
+  public Auto( String ownerName, String type ) {
+    this.ownerName = ownerName;
+    this.type = type;
+
+    maxSpeed = DEFAULT_MAX_SPEED;
+    tankCapacity = DEFAULT_TANK_CAPACITY;
+    odometer = DEFAULT_ODOMETER;
+    gasInTank = DEFAULT_GAS_IN_TANK;
+    averageKPL = DEFAULT_AVERAGE_KPL;
+  }
+
+  // simple method to check whether two floats are within some epsilon value
+  // if they are, they are considered to be equal / equivalent.
+  public static boolean floatEquals( float a, float b ) {
+    return Math.abs( a - b ) < EPSILON;
+  }
+
+  public void travel( float distance ) {
+    float gasUsedForDistance = distance / averageKPL;
+    
+    // check to see if the gas tank is empty
+    if ( floatEquals( gasInTank, 0.0f ) ) {
+
+      // if the gas tank is empty, do not travel
+      System.out.println( "Auto is out of gas, can not travel!" );
+
+    // check to see if the gas tank doesn't have enough gas for the trip
+    } else if ( gasUsedForDistance > gasInTank ) {
+      // the auto doesn't have enough gas for the full trip
+
+      // the auto can only use the gas left in the tank to travel
+      float distanceTravelled = gasInTank * averageKPL;
+
+      // set the tank to empty because we have used up the gas
+      gasInTank = 0.0f;
+
+      // increment the odometer
+      odometer += distanceTravelled;
+
+      // display travel info 
+      System.out.printf(
+          "Ran out of gas! Travelled %.1f KM before running out.%n",
+          distanceTravelled
+      );
+    } else {
+      // the gas tank is not empty and there is enough gas
+      
+      // remove the gas that was used to travel
+      gasInTank -= gasUsedForDistance;
+
+      // increment the odometer
+      odometer += distance;
+
+      // display travel info
+      System.out.printf( "Travelled %.1f KM.%n", distance );
+    }
+  }
+
+  // fill up the gas tank
+  public void fillGasTank() {
+    gasInTank = tankCapacity;
+  }
+
+  // setter methods
+  public void setOwnerName( String ownerName ) {
+    this.ownerName = ownerName;
+  }
+
+  public void setType( String type ) {
+    this.type = type;
+  }
+
+  public void setMaxSpeed( float maxSpeed ) {
+    this.maxSpeed = maxSpeed;
+  }
+
+  public void setTankCapacity( float tankCapacity ) {
+    this.tankCapacity = tankCapacity;
+  }
+
+  public void setOdometer( float odometer ) {
+    this.odometer = odometer;
+  }
+
+  public void setGasInTank( float gasInTank ) {
+    this.gasInTank = gasInTank;
+  }
+
+  public void setAverageKPL( float averageKPL ) {
+    this.averageKPL = averageKPL;
+  }
+
+  // display the auto information
+  public void display() {
+    System.out.printf( "Auto owner: %s%n", ownerName );
+    System.out.printf( "Auto type: %s%n", type );
+    System.out.printf( "Auto maxSpeed: %.1fKM/h%n", maxSpeed );
+    System.out.printf( "Auto tankCapacity: %.1fL%n", tankCapacity );
+    System.out.printf( "Auto odometer: %.1fKM%n", odometer );
+    System.out.printf( "Auto gasInTank: %.1fL%n", gasInTank );
+    System.out.printf( "Auto averageKPL: %.1fKM/L%n%n", averageKPL );
+  }
+}
+
+
+******************************************
+assignment2/Truck.java
+******************************************
+/* Lauren Howard
+ * CS1B - Assignment 2 - 2015.10.19
+ * Truck.java
+ * The Truck class is a subclass of the Auto class.  Similar to an Auto
+ * instance, a truck can travel by calling the travel method.  In addition to
+ * the member variables of the Auto class, trucks have a cargoCapacity.
+ * Trucks also have a maximum KM/L of 9.0KM/L, whereas Auto instances have no
+ * limit to their KM/L
+ */
+
+package assignment2;
+
+public class Truck extends Auto{
+  // the cargo capacity of the truck in KG
+  private float cargoCapacity;
+
+  // default values
+  public static final String DEFAULT_TYPE = "Semi-Truck";
+  public static final float DEFAULT_MAX_SPEED = 40.0f;
+  public static final float DEFAULT_TANK_CAPACITY = 550.0f;
+  public static final float DEFAULT_AVERAGE_KPL = 2.9f;
+  public static final float DEFAULT_CARGO_CAPACITY = 18000.0f;
+
+  // max KM/L for trucks only
+  public static final float MAX_TRUCK_KPL = 9.0f;
+
+  private static final float EPSILON = 0.00000001f;
+
+  // default Auto constructor
+  public Truck() {
+    super();
+
+    this.type = DEFAULT_TYPE;
+    this.maxSpeed = DEFAULT_MAX_SPEED;
+    this.tankCapacity = DEFAULT_TANK_CAPACITY;
+    
+    setAverageKPL( DEFAULT_AVERAGE_KPL );
+
+    cargoCapacity = DEFAULT_CARGO_CAPACITY;
+  }
+  
+  // Auto constructor with ownerName and type
+  public Truck( String ownerName, String type ) {
+    super( ownerName, type );
+
+    this.maxSpeed = DEFAULT_MAX_SPEED;
+    this.tankCapacity = DEFAULT_TANK_CAPACITY;
+
+    setAverageKPL( DEFAULT_AVERAGE_KPL );
+
+    cargoCapacity = DEFAULT_CARGO_CAPACITY;
+  }
+
+  // for this assignment, make it so that trucks have a maximum KPL
+  @Override
+  public void setAverageKPL( float averageKPL ) {
+    // makes sure that average KPL is not set to a value larger than max KPL
+    this.averageKPL = Math.min( averageKPL, MAX_TRUCK_KPL );
+  }
+
+  // display the auto information
+  @Override
+  public void display() {
+    System.out.printf( "Truck owner: %s%n", this.ownerName );
+    System.out.printf( "Truck type: %s%n", this.type );
+    System.out.printf( "Truck maxSpeed: %.1fKM/h%n", this.maxSpeed );
+    System.out.printf( "Truck tankCapacity: %.1fL%n", this.tankCapacity );
+    System.out.printf( "Truck odometer: %.1fKM%n", this.odometer );
+    System.out.printf( "Truck gasInTank: %.1fL%n", this.gasInTank );
+    System.out.printf( "Truck averageKPL: %.1fKM/L%n", this.averageKPL );
+    System.out.printf( "Truck cargoCapacity: %.1fKG%n%n", this.cargoCapacity );
+  }
+}
+
+
+******************************************
+CONSOLE OUTPUT
+******************************************
+Test 1 ========================
+Auto owner: Lauren Howard
+Auto type: Typical Car
+Auto maxSpeed: 160.0KM/h
+Auto tankCapacity: 40.0L
+Auto odometer: 0.0KM
+Auto gasInTank: 40.0L
+Auto averageKPL: 10.6KM/L
+
+Travelled 10.0 KM.
+Travelled 20.0 KM.
+Travelled 30.0 KM.
+Travelled 50.0 KM.
+Travelled 80.0 KM.
+Travelled 130.0 KM.
+Ran out of gas! Travelled 105.2 KM before running out.
+Auto is out of gas, can not travel!
+Auto is out of gas, can not travel!
+
+Auto owner: Lauren Howard
+Auto type: Typical Car
+Auto maxSpeed: 160.0KM/h
+Auto tankCapacity: 40.0L
+Auto odometer: 425.2KM
+Auto gasInTank: 0.0L
+Auto averageKPL: 10.6KM/L
+
+Test 2 ========================
+Truck owner: Jim Truckdriver
+Truck type: Semi-Truck
+Truck maxSpeed: 40.0KM/h
+Truck tankCapacity: 550.0L
+Truck odometer: 0.0KM
+Truck gasInTank: 550.0L
+Truck averageKPL: 2.9KM/L
+Truck cargoCapacity: 18000.0KG
+
+Travelled 10.0 KM.
+Travelled 20.0 KM.
+Travelled 30.0 KM.
+Travelled 50.0 KM.
+Travelled 80.0 KM.
+Travelled 130.0 KM.
+Travelled 210.0 KM.
+Travelled 340.0 KM.
+Travelled 550.0 KM.
+
+Truck owner: Jim Truckdriver
+Truck type: Semi-Truck
+Truck maxSpeed: 40.0KM/h
+Truck tankCapacity: 550.0L
+Truck odometer: 1420.0KM
+Truck gasInTank: 60.3L
+Truck averageKPL: 2.9KM/L
+Truck cargoCapacity: 18000.0KG
+

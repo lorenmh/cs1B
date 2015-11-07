@@ -1,0 +1,84 @@
+**********************************
+ASSIGNMENT 3 - 2015.11.7 - FH CS1B
+Lauren Howard
+**********************************
+
+QUESTION 1 ***********************
+An abstract class is a class which has been declared abstract by using the abstract modifier.
+
+Abstract classes mix the functionality of Java's interface pattern with Java's inheritance pattern. They can not be instantiated; they can only be extended by subclasses.
+
+Abstract classes can have abstract methods (declared with the abstract modifier).  Similar to the method definitions in an interface, abstract methods are defined only with their signatures.  Subclasses of the abstract class must provide implementations of superclass's abstract methods.  If a subclass doesn't provide implementations for all of the abstract methods of its abstract superclass, then the subclass must be declared abstract.
+
+Abstract classes can have non-abstract methods which are inherited by subclasses (methods not declared with the abstract modifier).
+
+EXAMPLE 1
+public abstract Car {
+  // an abstract method
+  public abstract float getMPG();
+
+  // a non abstract method
+  public float distanceWithGas( float amountGas ) {
+    return getMPG() * amountGas;
+  }
+}
+
+public HondaCivic extends Car {
+  public float getMPG() {
+    return 28.0f;
+  }
+}
+
+
+QUESTION 2 ***********************
+An interface is a reference type which declares the methods that a class must have to implement the interface.  A class implements an interface ( it does not extend it ).  In order to implement an interface, the class must define each method and variable declared within the interface.
+
+An interface declares methods with their method signatures.
+
+A class can implement more than one interface.
+
+EXAMPLE 2
+public interface Drivable {
+  void drive();
+}
+
+public HondaCivic implements Drivable {
+  public void drive() {
+    // do some driving here
+  }
+}
+
+
+QUESTION 3 ***********************
+Upcasting is where an instance of a subclass is casted as its superclass.
+
+For example:
+Dog d = new Dog();
+Animal a = d;
+
+In the above example, d is cast as its superclass, Animal.  The casting is done implicitly, to be explicit we could do:
+
+Dog d = new Dog();
+Animal a = (Animal) d;
+
+
+QUESTION 4 ***********************
+Downcasting is where an instance of a superclass is casted as its subclass.
+
+For example:
+Animal a = new Animal();
+Dog d = (Dog) a;
+
+With downcasting, we must always explicitly cast the superclass to the subclass ( it won't be done implicitly ).  The subclass must be an instance of the superclass, otherwise there will be a runtime error.
+
+
+QUESTION 5 ***********************
+Access modifiers determine whether fields or methods can be accessed by other classes.
+
+The public modifier means that it can be accessed everywhere ( within its own class, in its package, in its subclasses, and outside of its packages ).
+A private modifier means that it can only be accessed from within its own class.
+The protected modifier means that it can be accessed within its own class, in its package, and in its subclasses.
+
+
+QUESTION 6 **********************
+
